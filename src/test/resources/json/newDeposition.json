@@ -1,0 +1,29 @@
+{
+  "conceptrecid": "1175877",
+  "created": "2023-03-23T13:48:31.171653+00:00",
+  "files": [],
+  "id": 1175878,
+  "links": {
+    "bucket": "https://sandbox.zenodo.org/api/files/8b8fe756-3f14-454b-9236-af33ca8d7605",
+    "discard": "https://sandbox.zenodo.org/api/deposit/depositions/1175878/actions/discard",
+    "edit": "https://sandbox.zenodo.org/api/deposit/depositions/1175878/actions/edit",
+    "files": "https://sandbox.zenodo.org/api/deposit/depositions/1175878/files",
+    "html": "https://sandbox.zenodo.org/deposit/1175878",
+    "latest_draft": "https://sandbox.zenodo.org/api/deposit/depositions/1175878",
+    "latest_draft_html": "https://sandbox.zenodo.org/deposit/1175878",
+    "publish": "https://sandbox.zenodo.org/api/deposit/depositions/1175878/actions/publish",
+    "self": "https://sandbox.zenodo.org/api/deposit/depositions/1175878"
+  },
+  "metadata": {
+    "prereserve_doi": {
+      "doi": "10.5072/zenodo.1175878",
+      "recid": 1175878
+    }
+  },
+  "modified": "2023-03-23T13:48:31.171668+00:00",
+  "owner": 142311,
+  "record_id": 1175878,
+  "state": "unsubmitted",
+  "submitted": false,
+  "title": ""
+}
