@@ -5,7 +5,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <artifactId>fieldmark-java-client</artifactId>
-  <version>1.0.0</version>
+  <version>TEST-neil-SNAPSHOT</version>
   <parent>
     <groupId>com.github.rspace-os</groupId>
     <artifactId>rspace-os-parent</artifactId>
