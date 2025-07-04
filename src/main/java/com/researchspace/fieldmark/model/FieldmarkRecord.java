@@ -52,10 +52,11 @@ public class FieldmarkRecord {
     }
   }
 
-  public FieldmarkTypeExtractor createFieldTypeExtractor(String fieldName) throws NoSuchElementException {
+  public FieldmarkTypeExtractor createFieldTypeExtractor(String fieldName, boolean isIdentifier) throws NoSuchElementException {
     return FieldmarkTypeExtractorFactory.getTypeExtractorInstance(
         getObjectFieldValue(fieldName),
-        getFieldType(fieldName).orElseThrow());
+        getFieldType(fieldName).orElseThrow(),
+        isIdentifier);
   }
 
   public Map<String, Object> getFieldList(){
