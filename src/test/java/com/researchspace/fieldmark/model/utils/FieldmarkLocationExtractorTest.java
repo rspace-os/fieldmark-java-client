@@ -1,6 +1,7 @@
 package com.researchspace.fieldmark.model.utils;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -23,6 +24,7 @@ class FieldmarkLocationExtractorTest {
     assertEquals("FieldmarkLocation", underTest.getSimpleTypeName());
     assertEquals("-3.0", underTest.getLatitudeStringValue());
     assertEquals("5.0", underTest.getLongitudeStringValue());
+    assertFalse(underTest.isDoiIdentifier());
   }
 
   @Test

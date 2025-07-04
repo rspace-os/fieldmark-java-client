@@ -3,7 +3,6 @@ package com.researchspace.fieldmark.model.utils;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.researchspace.fieldmark.model.exception.FieldmarkExtractorParseException;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
@@ -17,9 +16,7 @@ import lombok.NoArgsConstructor;
  */
 public class FieldmarkTypeExtractor<T> {
 
-  @Getter
   protected T fieldValue;
-
   protected Class<T> fieldType;
 
   public FieldmarkTypeExtractor(Class<T> fieldType) {
@@ -66,4 +63,7 @@ public class FieldmarkTypeExtractor<T> {
     return this.fieldType.getSimpleName();
   }
 
+  public boolean isDoiIdentifier(){
+    return FieldmarkDoiIdentifierExtractor.class.isAssignableFrom(this.getClass());
+  }
 }

@@ -2,6 +2,7 @@ package com.researchspace.fieldmark.model.utils;
 
 import static com.researchspace.fieldmark.model.utils.FieldmarkDateExtractor.DATE_PATTERN;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -23,6 +24,7 @@ class FieldmarkDateExtractorTest {
     assertEquals("String", underTest.getSimpleTypeName());
 
     assertEquals(DATE, underTest.extractStringFieldValue());
+    assertFalse(underTest.isDoiIdentifier());
   }
 
   @Test

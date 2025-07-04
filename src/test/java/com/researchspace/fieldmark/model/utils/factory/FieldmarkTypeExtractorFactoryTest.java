@@ -19,34 +19,34 @@ class FieldmarkTypeExtractorFactoryTest {
   void testFactoryReturnsTheRightInstance() {
     FieldmarkTypeExtractor extractor = null;
 
-    extractor = getTypeExtractorInstance(null, "Files");
+    extractor = getTypeExtractorInstance(null, "Files", false);
     assertTrue(FieldmarkFileExtractor.class.isAssignableFrom(extractor.getClass()));
     assertEquals(byte[].class, extractor.getFieldType());
 
-    extractor = getTypeExtractorInstance(null, "Bool");
+    extractor = getTypeExtractorInstance(null, "Bool", false);
     assertEquals(Boolean.class, extractor.getFieldType());
 
-    extractor = getTypeExtractorInstance(null, "Date");
+    extractor = getTypeExtractorInstance(null, "Date", false);
     assertTrue(FieldmarkDateExtractor.class.isAssignableFrom(extractor.getClass()));
     assertEquals(String.class, extractor.getFieldType());
 
-    extractor = getTypeExtractorInstance(null, "Datetime");
+    extractor = getTypeExtractorInstance(null, "Datetime", false);
     assertTrue(FieldmarkDatetimeExtractor.class.isAssignableFrom(extractor.getClass()));
     assertEquals(String.class, extractor.getFieldType());
 
-    extractor = getTypeExtractorInstance(null, "Email");
+    extractor = getTypeExtractorInstance(null, "Email", false);
     assertEquals(String.class, extractor.getFieldType());
 
-    extractor = getTypeExtractorInstance(null, "Integer");
+    extractor = getTypeExtractorInstance(null, "Integer", false);
     assertEquals(Integer.class, extractor.getFieldType());
 
-    extractor = getTypeExtractorInstance(null, "JSON");
+    extractor = getTypeExtractorInstance(null, "JSON", false);
     assertEquals(String.class, extractor.getFieldType());
 
-    extractor = getTypeExtractorInstance(null, "String");
+    extractor = getTypeExtractorInstance(null, "String", false);
     assertEquals(String.class, extractor.getFieldType());
 
-    extractor = getTypeExtractorInstance(null, "Location");
+    extractor = getTypeExtractorInstance(null, "Location", false);
     assertTrue(FieldmarkLocationExtractor.class.isAssignableFrom(extractor.getClass()));
     assertEquals(FieldmarkLocation.class, extractor.getFieldType());
   }
@@ -56,7 +56,7 @@ class FieldmarkTypeExtractorFactoryTest {
 
     UnsupportedOperationException thrown = assertThrows(
         UnsupportedOperationException.class,
-        () -> getTypeExtractorInstance(null, "Array"),
+        () -> getTypeExtractorInstance(null, "Array", false),
         "FieldmarkTypeExtractorFactory didnt throw the exception, but it was needed"
     );
     assertTrue(
@@ -65,7 +65,7 @@ class FieldmarkTypeExtractorFactoryTest {
 
     thrown = assertThrows(
         UnsupportedOperationException.class,
-        () -> getTypeExtractorInstance(null, "Relationship"),
+        () -> getTypeExtractorInstance(null, "Relationship", false),
         "FieldmarkTypeExtractorFactory didnt throw the exception, but it was needed"
     );
     assertTrue(
@@ -74,7 +74,7 @@ class FieldmarkTypeExtractorFactoryTest {
 
     thrown = assertThrows(
         UnsupportedOperationException.class,
-        () -> getTypeExtractorInstance(null, "AnyOtherType"),
+        () -> getTypeExtractorInstance(null, "AnyOtherType", false),
         "FieldmarkTypeExtractorFactory didnt throw the exception, but it was needed"
     );
     assertTrue(
