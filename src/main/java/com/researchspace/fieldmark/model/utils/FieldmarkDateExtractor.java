@@ -13,7 +13,7 @@ public class FieldmarkDateExtractor extends FieldmarkTypeExtractor<String> {
   private final static DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_PATTERN,
       Locale.ENGLISH);
 
-  public FieldmarkDateExtractor(String fieldValue) {
+  public FieldmarkDateExtractor(Object fieldValue) {
     super(fieldValue, String.class);
     if (fieldValue != null) {
       try {
