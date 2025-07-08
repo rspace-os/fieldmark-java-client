@@ -1,6 +1,8 @@
 package com.researchspace.fieldmark.model.utils;
 
 import com.researchspace.fieldmark.model.FieldmarkLocation;
+import java.util.List;
+import java.util.Map;
 import lombok.Setter;
 
 public class FieldmarkLocationExtractor extends FieldmarkTypeExtractor<FieldmarkLocation> {
@@ -11,8 +13,22 @@ public class FieldmarkLocationExtractor extends FieldmarkTypeExtractor<Fieldmark
   @Setter
   private String longitudeStringValue;
 
-  public FieldmarkLocationExtractor(FieldmarkLocation fieldValue) {
+  public FieldmarkLocationExtractor(Object fieldValue) {
     super(fieldValue, FieldmarkLocation.class);
+    if (fieldValue != null) {
+      FieldmarkLocation locationValue = null;
+      if (!FieldmarkLocation.class.isAssignableFrom(fieldValue.getClass())) {
+        Map dataRaw = (Map) fieldValue;
+        List<Double> coordinates =
+            ((List) ((Map) dataRaw.get("geometry")).get("coordinates"));
+        locationValue = new FieldmarkLocation();
+        locationValue.setLatitude(coordinates.get(0));
+        locationValue.setLongitude(coordinates.get(1));
+      } else {
+        locationValue = (FieldmarkLocation) fieldValue;
+      }
+      this.fieldValue = locationValue;
+    }
   }
 
   @Override
