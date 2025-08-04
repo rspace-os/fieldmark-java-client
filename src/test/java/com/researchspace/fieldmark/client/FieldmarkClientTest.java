@@ -31,20 +31,25 @@ class FieldmarkClientTest {
   public void init() {
     fieldmarkClient = new FieldmarkClientImpl();
     mockServer = MockRestServiceServer.createServer(fieldmarkClient.getRestTemplate());
+    String tokenJson = "{\"token\": \"LONG_LIVED_TOKEN\"}";
+    mockServer.expect(requestTo(containsString("/exchange-long-lived-token")))
+        .andExpect(method(HttpMethod.POST))
+        .andRespond(withSuccess(tokenJson, MediaType.APPLICATION_JSON));
   }
 
   @Test
   public void testGetNotebooks() throws IOException {
     String notebooksJson = IOUtils.resourceToString("/json/notebooks.json",
         Charset.defaultCharset());
+
     mockServer.expect(requestTo(containsString("/notebooks/")))
         .andExpect(method(HttpMethod.GET))
         .andRespond(withSuccess(notebooksJson, MediaType.APPLICATION_JSON));
 
-    List<FieldmarkNotebook> notebooks = fieldmarkClient.getNotebooks("");
+    List<FieldmarkNotebook> notebooks = fieldmarkClient.getNotebooks("LONG_LIVED_TOKEN");
     assertNotNull(notebooks);
     assertEquals(1, notebooks.size());
-    assertEquals("1726126204618-rspace-igsn-demo", notebooks.get(0).getNonUniqueProjectId());
+    assertEquals("1726126204618-rspace-igsn-demo", notebooks.get(0).getProjectId());
     assertEquals("RSpace IGSN Demo", notebooks.get(0).getName());
   }
 
@@ -81,7 +86,7 @@ class FieldmarkClientTest {
   public void testGetCsvRecords() throws IOException {
     String notebookRecordsCsv = IOUtils.resourceToString("/files/notebook.csv",
         Charset.defaultCharset());
-    mockServer.expect(requestTo(containsString("/notebooks/1726126204618-rspace-igsn-demo/Primary.csv")))
+    mockServer.expect(requestTo(containsString("/notebooks/1726126204618-rspace-igsn-demo/records/Primary.csv")))
         .andExpect(method(HttpMethod.GET))
         .andRespond(withSuccess(notebookRecordsCsv, MediaType.APPLICATION_JSON));
 
@@ -95,7 +100,7 @@ class FieldmarkClientTest {
   @Test
   public void testGetFieldmarkZipFile() throws IOException {
     byte[] zipFile = IOUtils.resourceToByteArray("/files/FieldmarkFile.zip");
-    mockServer.expect(requestTo(containsString("/notebooks/1726126204618-rspace-igsn-demo/Primary.zip")))
+    mockServer.expect(requestTo(containsString("/notebooks/1726126204618-rspace-igsn-demo/records/Primary.zip")))
         .andExpect(method(HttpMethod.GET))
         .andRespond(withSuccess(zipFile, MediaType.APPLICATION_OCTET_STREAM));
 

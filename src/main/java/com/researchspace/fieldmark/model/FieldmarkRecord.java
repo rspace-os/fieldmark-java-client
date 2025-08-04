@@ -1,5 +1,6 @@
 package com.researchspace.fieldmark.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.researchspace.fieldmark.model.utils.FieldmarkTypeExtractor;
@@ -39,27 +40,29 @@ public class FieldmarkRecord {
   @JsonProperty("created_by")
   private String createdBy;
 
-  @JsonProperty("field_types")
+  @JsonIgnore
   private Map<String, String> fieldTypes;
 
   private boolean deleted;
 
+
   public Optional<String> getFieldType(String fieldName) {
     try {
       return Optional.of(getFieldTypes().get(fieldName).split("::")[1]);
-    } catch (ArrayIndexOutOfBoundsException | NullPointerException ex){
+    } catch (ArrayIndexOutOfBoundsException | NullPointerException ex) {
       return Optional.empty();
     }
   }
 
-  public FieldmarkTypeExtractor createFieldTypeExtractor(String fieldName, boolean isIdentifier) throws NoSuchElementException {
+  public FieldmarkTypeExtractor createFieldTypeExtractor(String fieldName, boolean isIdentifier)
+      throws NoSuchElementException {
     return FieldmarkTypeExtractorFactory.getTypeExtractorInstance(
         getObjectFieldValue(fieldName),
         getFieldType(fieldName).orElseThrow(),
         isIdentifier);
   }
 
-  public Map<String, Object> getFieldList(){
+  public Map<String, Object> getFieldList() {
     return Collections.unmodifiableMap(this.data);
   }
 

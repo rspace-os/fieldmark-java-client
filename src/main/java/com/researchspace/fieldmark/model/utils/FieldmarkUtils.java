@@ -1,12 +1,16 @@
 package com.researchspace.fieldmark.model.utils;
 
+import com.researchspace.fieldmark.model.FieldmarkFieldDetail;
+import com.researchspace.fieldmark.model.FieldmarkNotebook;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import org.apache.commons.io.FileUtils;
@@ -39,6 +43,15 @@ public class FieldmarkUtils {
       }
     }
     return result;
+  }
+
+  public static Map<String, String> buildFieldTypeMap(FieldmarkNotebook fieldmarkNotebook) {
+    Map<String, String> recordFieldTypes = new HashMap<>();
+    for (Entry<String, FieldmarkFieldDetail> typeByFieldName :
+        fieldmarkNotebook.getUiSpecification().getFields().entrySet()) {
+      recordFieldTypes.put(typeByFieldName.getKey(), typeByFieldName.getValue().getFieldType());
+    }
+    return recordFieldTypes;
   }
 
 }

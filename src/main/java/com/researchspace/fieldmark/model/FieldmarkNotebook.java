@@ -12,15 +12,13 @@ public class FieldmarkNotebook {
 
   private String name;
   private String status;
+  private String id;
 
   @JsonProperty("project_id")
   private String projectId;
 
   @JsonProperty("listing_id")
   private String listingId;
-
-  @JsonProperty("non_unique_project_id")
-  private String nonUniqueProjectId;
 
   private FieldmarkNotebookMetadata metadata;
 

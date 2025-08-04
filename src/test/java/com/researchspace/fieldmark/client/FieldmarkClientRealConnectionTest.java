@@ -17,42 +17,45 @@ import org.junit.jupiter.api.Test;
 class FieldmarkClientRealConnectionTest {
 
   private final FieldmarkClientImpl fieldmarkClientImpl = new FieldmarkClientImpl();
-  private final String ACCESS_TOKEN = "_______PASTE_TOKEN_HERE_________";
+  private final String LONG_LIVED_TOKEN = "_______PASTE_TOKEN_HERE_________";
   private final String NOTEBOOK_ID = "1726126204618-rspace-igsn-demo";
   private final String FORM_ID = "Primary";
 
   @BeforeEach
-  public void setUp(){
-    fieldmarkClientImpl.setFieldmarkBaseUrl("https://conductor.fieldmark.app/api");
+  public void setUp() {
+    fieldmarkClientImpl.setFieldmarkBaseUrl("https://api.fieldmark.app/api");
   }
 
   @Test
   public void testGetNotebooks() {
-    List<FieldmarkNotebook> result =  fieldmarkClientImpl.getNotebooks(ACCESS_TOKEN);
+    List<FieldmarkNotebook> result = fieldmarkClientImpl.getNotebooks(LONG_LIVED_TOKEN);
     assertNotNull(result);
   }
 
- @Test
+  @Test
   public void testGetNotebook() {
-    FieldmarkNotebook result =  fieldmarkClientImpl.getNotebook(ACCESS_TOKEN, NOTEBOOK_ID);
+    FieldmarkNotebook result = fieldmarkClientImpl.getNotebook(LONG_LIVED_TOKEN, NOTEBOOK_ID);
     assertNotNull(result);
   }
 
   @Test
   public void testGetNotebookRecords() {
-    FieldmarkRecordsJsonExport result =  fieldmarkClientImpl.getNotebookRecords(ACCESS_TOKEN, NOTEBOOK_ID);
+    FieldmarkRecordsJsonExport result = fieldmarkClientImpl.getNotebookRecords(LONG_LIVED_TOKEN,
+        NOTEBOOK_ID);
     assertNotNull(result);
   }
 
   @Test
-  public void testGetNotebookCsv() throws IOException {
-    FieldmarkRecordsCsvExport result =  fieldmarkClientImpl.getNotebookCsv(ACCESS_TOKEN, NOTEBOOK_ID, FORM_ID);
+  public void testGetNotebookCsv() {
+    FieldmarkRecordsCsvExport result = fieldmarkClientImpl.getNotebookCsv(LONG_LIVED_TOKEN,
+        NOTEBOOK_ID, FORM_ID);
     assertNotNull(result.getRecords());
   }
 
   @Test
   public void testGetNotebookFiles() throws IOException {
-    Map<String, byte[]> result =  fieldmarkClientImpl.getNotebookFiles(ACCESS_TOKEN, NOTEBOOK_ID, FORM_ID);
+    Map<String, byte[]> result = fieldmarkClientImpl.getNotebookFiles(LONG_LIVED_TOKEN, NOTEBOOK_ID,
+        FORM_ID);
     assertNotNull(result);
   }
 

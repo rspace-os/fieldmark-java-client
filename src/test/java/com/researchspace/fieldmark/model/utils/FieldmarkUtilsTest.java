@@ -29,12 +29,12 @@ class FieldmarkUtilsTest {
     assertEquals("Sample-12-00009-Sample-Photograph.jpg", file.getName());
     assertTrue(file.canRead());
 
-    assertTrue(result.containsKey("Sample-Photograph/Sample-45-00010-Sample-Photograph.jpg"));
+    assertTrue(result.containsKey("Sample-Photograph/Sample-63-00050-Sample-Photograph.jpg"));
     file = new File(FileUtils.getTempDirectoryPath() +
-        "Sample-Photograph/Sample-45-00010-Sample-Photograph.jpg");
+        "Sample-Photograph/Sample-63-00050-Sample-Photograph.jpg");
     FileUtils.writeByteArrayToFile(file,
-        result.get("Sample-Photograph/Sample-45-00010-Sample-Photograph.jpg"));
-    assertEquals("Sample-45-00010-Sample-Photograph.jpg", file.getName());
+        result.get("Sample-Photograph/Sample-63-00050-Sample-Photograph.jpg"));
+    assertEquals("Sample-63-00050-Sample-Photograph.jpg", file.getName());
     assertTrue(file.canRead());
 
 
