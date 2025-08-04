@@ -22,11 +22,10 @@ class FieldmarkNotebookTest {
 
     ObjectMapper mapper = new ObjectMapper();
     FieldmarkNotebook notebookUnderTest = mapper.readValue(jsonRecords, FieldmarkNotebook.class);
-    assertNull(notebookUnderTest.getName());
-    assertNull(notebookUnderTest.getStatus());
-    assertNull(notebookUnderTest.getProjectId());
+    assertEquals("RSpace IGSN Demo", notebookUnderTest.getName());
+    assertEquals("OPEN", notebookUnderTest.getStatus());
+    assertNull(notebookUnderTest.getId());
     assertNull(notebookUnderTest.getListingId());
-    assertNull(notebookUnderTest.getNonUniqueProjectId());
 
     FieldmarkNotebookMetadata metadataUnderTest = notebookUnderTest.getMetadata();
     assertNotNull(metadataUnderTest);

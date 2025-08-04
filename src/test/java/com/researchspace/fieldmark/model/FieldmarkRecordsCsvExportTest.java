@@ -29,11 +29,11 @@ class FieldmarkRecordsCsvExportTest {
   }
 
   @ParameterizedTest
-  @ValueSource(strings = {"rec-5eb53c21-d7f8-41a7-a8b5-4900e46cf8e0","rec-ae48f602-c9c4-4e9e-ae3b-6ecf65706e87","rec-e881323c-d3cb-4393-9784-07b86585675b"})
+  @ValueSource(strings = {"rec-5eb53c21-d7f8-41a7-a8b5-4900e46cf8e0","rec-b189e6ec-b760-4b44-8789-0ddc35d7cde2","rec-e881323c-d3cb-4393-9784-07b86585675b"})
   void testAllRecordsAreIngested(String recordId) {
     assertEquals(3, underTest.getRecords().size());
     assertNotNull(underTest.getRecord(recordId));
-    assertEquals(19, underTest.getRecord(recordId).size());
+    assertEquals(40, underTest.getRecord(recordId).size());
   }
 
 }

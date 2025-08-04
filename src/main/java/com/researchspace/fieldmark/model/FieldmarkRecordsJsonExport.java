@@ -24,6 +24,12 @@ public class FieldmarkRecordsJsonExport {
 
   public void setRecords(List<FieldmarkRecord> records) {
     this.records = records;
+  }
+
+  public void setFieldTypes(Map<String, String> fieldTypes){
+    for (FieldmarkRecord currentRecord : this.records) {
+      currentRecord.setFieldTypes(fieldTypes);
+    }
     performRecordIndexing();
   }
 
@@ -37,7 +43,7 @@ public class FieldmarkRecordsJsonExport {
 
 
   public FieldmarkRecord getFirstRecord() {
-    return recordsById.values().stream().findFirst().orElse(null);
+    return records.get(0);
   }
 
   /***
