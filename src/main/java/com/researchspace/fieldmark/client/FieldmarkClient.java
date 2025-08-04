@@ -71,7 +71,7 @@ public interface FieldmarkClient {
    * @throws IOException
    */
   FieldmarkRecordsCsvExport getNotebookCsv(String accessToken, String notebookId, String formId)
-      throws HttpServerErrorException, IOException;
+      throws HttpServerErrorException;
 
   /***
    * This method is in charge to call the Fieldmark end point to receive the ZIP file with all the
