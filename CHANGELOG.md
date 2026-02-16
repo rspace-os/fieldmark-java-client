@@ -1,6 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [3.1.0]
+- switch parent pom from rspace-os-parent to rspace-parent (updates/changes a lot of dependencies)
+
 ## [3.0.0]
 - Changing domain model to be inline with the new Fieldmark release rolled out on 25/07/2025
 
