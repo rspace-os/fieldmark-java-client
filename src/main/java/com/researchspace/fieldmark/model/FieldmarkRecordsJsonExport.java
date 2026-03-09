@@ -1,6 +1,7 @@
 package com.researchspace.fieldmark.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.researchspace.fieldmark.model.exception.FieldmarkImportException;
 import com.researchspace.fieldmark.model.exception.FieldmarkUnsupportedNotebookException;
 import java.util.Collections;
 import java.util.Iterator;
@@ -26,7 +27,7 @@ public class FieldmarkRecordsJsonExport {
     this.records = records;
   }
 
-  public void setFieldTypes(Map<String, String> fieldTypes){
+  public void setFieldTypes(Map<String, String> fieldTypes) {
     for (FieldmarkRecord currentRecord : this.records) {
       currentRecord.setFieldTypes(fieldTypes);
     }
@@ -43,7 +44,10 @@ public class FieldmarkRecordsJsonExport {
 
 
   public FieldmarkRecord getFirstRecord() {
-    return records.get(0);
+    if (!records.isEmpty()) {
+      return records.get(0);
+    }
+    throw new FieldmarkImportException("Notebook has no records");
   }
 
   /***
@@ -80,7 +84,7 @@ public class FieldmarkRecordsJsonExport {
         }
       }
       if (this.hasFiles == null) {
-        this.hasFiles = records.get(0).getFieldTypes().keySet().stream()
+        this.hasFiles = getFirstRecord().getFieldTypes().keySet().stream()
             .anyMatch(
                 fieldName -> FILE_TYPE.equalsIgnoreCase(getFieldType(fieldName).orElse(null))
             );

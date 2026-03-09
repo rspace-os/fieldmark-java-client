@@ -48,7 +48,7 @@ class FieldmarkClientTest {
 
     List<FieldmarkNotebook> notebooks = fieldmarkClient.getNotebooks("LONG_LIVED_TOKEN");
     assertNotNull(notebooks);
-    assertEquals(1, notebooks.size());
+    assertEquals(3, notebooks.size());
     assertEquals("1726126204618-rspace-igsn-demo", notebooks.get(0).getProjectId());
     assertEquals("RSpace IGSN Demo", notebooks.get(0).getName());
   }
@@ -79,7 +79,7 @@ class FieldmarkClientTest {
     FieldmarkRecordsJsonExport notebook = fieldmarkClient.getNotebookRecords("", "1726126204618-rspace-igsn-demo");
     assertNotNull(notebook);
     assertNotNull(notebook.getRecords());
-    assertEquals(3, notebook.getRecords().size());
+    assertEquals(4, notebook.getRecords().size());
   }
 
   @Test
@@ -94,7 +94,7 @@ class FieldmarkClientTest {
 
     assertNotNull(csvRecords);
     assertNotNull(csvRecords.getRecords());
-    assertEquals(3, csvRecords.getRecords().size());
+    assertEquals(4, csvRecords.getRecords().size());
   }
 
   @Test
