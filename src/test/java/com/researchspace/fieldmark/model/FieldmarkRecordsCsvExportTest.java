@@ -22,16 +22,22 @@ class FieldmarkRecordsCsvExportTest {
   }
 
   @ParameterizedTest
-  @ValueSource(strings = {"identifier","record_id","revision_id","type","updated_by","updated","Field-ID","hridPrimary-Next-Section","Survey-Number","IGSN-QR-Code","Sample-Location","Sample-Location_latitude","Sample-Location_longitude","New-Text-Field","Description","Sample-Photograph","Length-mm","Width-mm","Thickness-mm"})
+  @ValueSource(strings = {"identifier", "record_id", "revision_id", "type", "updated_by", "updated",
+      "Field-ID", "hridPrimary-Next-Section", "Survey-Number", "IGSN-QR-Code", "Sample-Location",
+      "Sample-Location_latitude", "Sample-Location_longitude", "New-Text-Field", "Description",
+      "Sample-Photograph", "Length-mm", "Width-mm", "Thickness-mm"})
   void testAllColumnsAreIngested(String columnName) {
-    Map<String, String> firstRecord = underTest.getRecords().values().stream().findFirst().orElseThrow();
+    Map<String, String> firstRecord = underTest.getRecords().values().stream().findFirst()
+        .orElseThrow();
     assertTrue(firstRecord.containsKey(columnName));
   }
 
   @ParameterizedTest
-  @ValueSource(strings = {"rec-5eb53c21-d7f8-41a7-a8b5-4900e46cf8e0","rec-b189e6ec-b760-4b44-8789-0ddc35d7cde2","rec-e881323c-d3cb-4393-9784-07b86585675b"})
+  @ValueSource(strings = {"rec-5eb53c21-d7f8-41a7-a8b5-4900e46cf8e0",
+      "rec-678a0fac-05e1-448c-8e57-61a858fffcfd", "rec-b189e6ec-b760-4b44-8789-0ddc35d7cde2",
+      "rec-e881323c-d3cb-4393-9784-07b86585675b"})
   void testAllRecordsAreIngested(String recordId) {
-    assertEquals(3, underTest.getRecords().size());
+    assertEquals(4, underTest.getRecords().size());
     assertNotNull(underTest.getRecord(recordId));
     assertEquals(40, underTest.getRecord(recordId).size());
   }

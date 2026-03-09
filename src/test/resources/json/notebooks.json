@@ -1,31 +1,71 @@
 [
   {
     "name": "RSpace IGSN Demo",
-    "is_admin": true,
-    "project_id": "1726126204618-rspace-igsn-demo",
+    "status": "OPEN",
+    "id": null,
     "metadata": {
+      "name": "RSpace IGSN Demo",
+      "showQRCodeButton": "true",
       "Age": "123",
       "Size": "Large",
-      "accesses": [
-        "admin",
-        "moderator",
-        "team",
-        "user"
-      ],
-      "filenames": [],
       "ispublic": false,
       "isrequest": false,
       "lead_institution": "Fieldmark",
-      "name": "RSpace IGSN Demo",
       "notebook_version": "1.1",
       "pre_description": "Demonstration notebook to help develop an export pipeline from Fieldmark to RSpace.",
       "project_lead": "Steve Cassidy",
       "project_status": "New",
-      "schema_version": "1.0",
-      "sections": {},
-      "showQRCodeButton": "true",
+      "schema_version": "2.0",
       "project_id": "1726126204618-rspace-igsn-demo"
     },
-    "status": "OPEN"
+    "project_id": "1726126204618-rspace-igsn-demo",
+    "listing_id": null,
+    "ui-specification": null
+  },
+  {
+    "name": "Tree Survey",
+    "status": "OPEN",
+    "id": null,
+    "metadata": {
+      "name": "Tree Survey",
+      "showQRCodeButton": "false",
+      "Age": null,
+      "Size": null,
+      "ispublic": false,
+      "isrequest": false,
+      "lead_institution": "EFN",
+      "notebook_version": "1.0",
+      "pre_description": "Sample notebook to illustrate a QR code based tree survey with multiple observations per tree.",
+      "project_lead": "Steve Cassidy",
+      "project_status": "New",
+      "schema_version": "2.0",
+      "project_id": "1756863052664-tree-survey"
+    },
+    "project_id": "1756863052664-tree-survey",
+    "listing_id": null,
+    "ui-specification": null
+  },
+  {
+    "name": "Field Sampler",
+    "status": "OPEN",
+    "id": null,
+    "metadata": {
+      "name": "Field Sampler",
+      "showQRCodeButton": "false",
+      "Age": null,
+      "Size": null,
+      "ispublic": false,
+      "isrequest": false,
+      "lead_institution": "Fieldmark",
+      "notebook_version": "1.0",
+      "pre_description": "Sample notebook with required fields of many types to test validation",
+      "project_lead": "Steve Cassidy",
+      "project_status": "New",
+      "schema_version": "2.0",
+      "project_id": "1756872649639-field-sampler"
+    },
+    "project_id": "1756872649639-field-sampler",
+    "listing_id": null,
+    "ui-specification": null
   }
 ]

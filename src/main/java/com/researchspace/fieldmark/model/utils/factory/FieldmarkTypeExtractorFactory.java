@@ -25,7 +25,8 @@ public class FieldmarkTypeExtractorFactory {
         } else {
           return new FieldmarkTypeExtractor<>(fieldValue, String.class);
         }
-      case "INTEGER":
+      case "NUMBER":
+      case "INTEGER": // just for retro-compatibility
         return new FieldmarkTypeExtractor<>(fieldValue, Integer.class);
       case "FILES":
         return new FieldmarkFileExtractor(); // value is null because the actual value is taken from the ZIP file
