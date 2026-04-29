@@ -21,29 +21,29 @@ class FieldmarkUtilsTest {
     assertNotNull(result);
     assertEquals(3, result.size());
 
-    assertTrue(result.containsKey("Sample-Photograph/Sample-12-00009-Sample-Photograph.jpg"));
+    assertTrue(result.containsKey("primary/sample-photograph/sample-12-00009.jpg"));
     File file = new File(FileUtils.getTempDirectoryPath() +
-        "/Sample-Photograph/Sample-12-00009-Sample-Photograph.jpg");
+        "primary/sample-photograph/sample-12-00009.jpg");
     FileUtils.writeByteArrayToFile(file,
-        result.get("Sample-Photograph/Sample-12-00009-Sample-Photograph.jpg"));
-    assertEquals("Sample-12-00009-Sample-Photograph.jpg", file.getName());
+        result.get("primary/sample-photograph/sample-12-00009.jpg"));
+    assertEquals("sample-12-00009.jpg", file.getName());
     assertTrue(file.canRead());
 
-    assertTrue(result.containsKey("Sample-Photograph/Sample-63-00050-Sample-Photograph.jpg"));
+    assertTrue(result.containsKey("primary/sample-photograph/sample-63-00050.jpg"));
     file = new File(FileUtils.getTempDirectoryPath() +
-        "Sample-Photograph/Sample-63-00050-Sample-Photograph.jpg");
+        "primary/sample-photograph/sample-63-00050.jpg");
     FileUtils.writeByteArrayToFile(file,
-        result.get("Sample-Photograph/Sample-63-00050-Sample-Photograph.jpg"));
-    assertEquals("Sample-63-00050-Sample-Photograph.jpg", file.getName());
+        result.get("primary/sample-photograph/sample-63-00050.jpg"));
+    assertEquals("sample-63-00050.jpg", file.getName());
     assertTrue(file.canRead());
 
 
-    assertTrue(result.containsKey("Sample-Photograph/Sample-1-00008-Sample-Photograph.jpg"));
+    assertTrue(result.containsKey("primary/sample-photograph/sample-1-00008.jpg"));
     file = new File(FileUtils.getTempDirectoryPath() +
-        "Sample-Photograph/Sample-1-00008-Sample-Photograph.jpg");
+        "primary/sample-photograph/sample-1-00008.jpg");
     FileUtils.writeByteArrayToFile(file,
-        result.get("Sample-Photograph/Sample-1-00008-Sample-Photograph.jpg"));
-    assertEquals("Sample-1-00008-Sample-Photograph.jpg", file.getName());
+        result.get("primary/sample-photograph/sample-1-00008.jpg"));
+    assertEquals("sample-1-00008.jpg", file.getName());
     assertTrue(file.canRead());
 
   }

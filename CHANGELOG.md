@@ -1,6 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [3.2.0]
+- Adapting client to the new Fieldmark release `1.4.2`
+
 ## [3.1.0]
 - switch parent pom from rspace-os-parent to rspace-parent (updates/changes a lot of dependencies)
 

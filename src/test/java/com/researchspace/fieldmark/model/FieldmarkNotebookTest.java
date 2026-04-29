@@ -41,7 +41,7 @@ class FieldmarkNotebookTest {
         metadataUnderTest.getPreDescription());
     assertEquals("Steve Cassidy", metadataUnderTest.getProjectLead());
     assertEquals("New", metadataUnderTest.getProjectStatus());
-    assertEquals("1.0", metadataUnderTest.getSchemaVersion());
+    assertEquals("2.0", metadataUnderTest.getSchemaVersion());
     assertEquals("true", metadataUnderTest.getShowQRCodeButton());
     assertEquals("1726126204618-rspace-igsn-demo", metadataUnderTest.getProjectId());
 
@@ -56,7 +56,7 @@ class FieldmarkNotebookTest {
     List<FieldmarkNotebook> underTest = Arrays.asList(
         mapper.readValue(jsonRecords, FieldmarkNotebook[].class));
 
-    assertEquals(1, underTest.size());
+    assertEquals(3, underTest.size());
 
     FieldmarkNotebookMetadata metadata = underTest.get(0).getMetadata();
     assertNotNull(metadata);
@@ -72,7 +72,7 @@ class FieldmarkNotebookTest {
         metadata.getPreDescription());
     assertEquals("Steve Cassidy", metadata.getProjectLead());
     assertEquals("New", metadata.getProjectStatus());
-    assertEquals("1.0", metadata.getSchemaVersion());
+    assertEquals("2.0", metadata.getSchemaVersion());
     assertEquals("true", metadata.getShowQRCodeButton());
     assertEquals("1726126204618-rspace-igsn-demo", metadata.getProjectId());
 

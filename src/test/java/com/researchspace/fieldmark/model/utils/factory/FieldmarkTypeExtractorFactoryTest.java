@@ -37,7 +37,7 @@ class FieldmarkTypeExtractorFactoryTest {
     extractor = getTypeExtractorInstance(null, "Email", false);
     assertEquals(String.class, extractor.getFieldType());
 
-    extractor = getTypeExtractorInstance(null, "Integer", false);
+    extractor = getTypeExtractorInstance(null, "Number", false);
     assertEquals(Integer.class, extractor.getFieldType());
 
     extractor = getTypeExtractorInstance(null, "JSON", false);

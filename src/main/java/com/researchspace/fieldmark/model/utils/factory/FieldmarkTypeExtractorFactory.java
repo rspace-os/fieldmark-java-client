@@ -25,7 +25,8 @@ public class FieldmarkTypeExtractorFactory {
         } else {
           return new FieldmarkTypeExtractor<>(fieldValue, String.class);
         }
-      case "INTEGER":
+      case "NUMBER":
+      case "INTEGER": // just for retro-compatibility
         return new FieldmarkTypeExtractor<>(fieldValue, Integer.class);
       case "NUMBER":
       case "LONG":
