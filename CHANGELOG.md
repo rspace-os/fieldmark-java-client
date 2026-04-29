@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [4.0.0]
+- Spring 6 / Hibernate 6 / Jakarta migration (RSDEV-444)
+- Upgrade to rspace-parent 3.0.0
+
 ## [3.2.0]
 - Adapting client to the new Fieldmark release `1.4.2`
 
