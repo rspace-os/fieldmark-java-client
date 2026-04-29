@@ -28,12 +28,6 @@ public class FieldmarkTypeExtractorFactory {
       case "NUMBER":
       case "INTEGER": // just for retro-compatibility
         return new FieldmarkTypeExtractor<>(fieldValue, Integer.class);
-      case "NUMBER":
-      case "LONG":
-      case "DOUBLE":
-      case "FLOAT":
-      case "BIGDECIMAL":
-        return new FieldmarkTypeExtractor<>(fieldValue, Number.class);
       case "FILES":
         return new FieldmarkFileExtractor(); // value is null because the actual value is taken from the ZIP file
       case "LOCATION":
