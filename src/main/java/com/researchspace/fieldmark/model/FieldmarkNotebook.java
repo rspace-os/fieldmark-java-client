@@ -85,6 +85,9 @@ public class FieldmarkNotebook {
     result.setProjectId(id);
     result.setName(name);
     result.setPreDescription(description);
+    // never null: the rspace-web import calls toString() on these unconditionally
+    result.setIsPublic(Boolean.FALSE);
+    result.setIsRequest(Boolean.FALSE);
     if (definition == null) {
       return result;
     }
@@ -106,6 +109,12 @@ public class FieldmarkNotebook {
       result.setAge(Objects.toString(custom.get("Age"), null));
       result.setSize(Objects.toString(custom.get("Size"), null));
       result.setProjectStatus(Objects.toString(custom.get("project_status"), null));
+      if (custom.get("ispublic") != null) {
+        result.setIsPublic(Boolean.parseBoolean(custom.get("ispublic").toString()));
+      }
+      if (custom.get("isrequest") != null) {
+        result.setIsRequest(Boolean.parseBoolean(custom.get("isrequest").toString()));
+      }
     }
     FieldmarkNotebookDefinition.UiSpec uiSpec = definition.getUiSpec();
     if (uiSpec != null) {

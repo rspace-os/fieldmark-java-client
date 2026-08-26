@@ -66,6 +66,9 @@ class FieldmarkClientRealConnectionTest {
     assertTrue(StringUtils.isNotBlank(result.getMetadata().getLeadInstitution()));
     assertTrue(StringUtils.isNotBlank(result.getMetadata().getNotebookVersion()));
     assertTrue(StringUtils.isNotBlank(result.getMetadata().getSchemaVersion()));
+    // the rspace-web import calls toString() on these two, so null here breaks every import
+    assertNotNull(result.getMetadata().getIsPublic());
+    assertNotNull(result.getMetadata().getIsRequest());
 
     assertNotNull(result.getUiSpecification(),
         "the UI specification drives the whole import: it must be present on a single-notebook GET");

@@ -81,9 +81,8 @@ class FieldmarkNotebookTest {
     assertEquals("123", metadataUnderTest.getAge());
     assertEquals("Large", metadataUnderTest.getSize());
     assertEquals("New", metadataUnderTest.getProjectStatus());
-    // removed by the v1.6.2 API: degrade to null
-    assertNull(metadataUnderTest.getIsPublic());
-    assertNull(metadataUnderTest.getIsRequest());
+    assertEquals(Boolean.TRUE, metadataUnderTest.getIsPublic());
+    assertEquals(Boolean.FALSE, metadataUnderTest.getIsRequest());
 
     FieldmarkUiSpecification uiSpec = notebookUnderTest.getUiSpecification();
     assertNotNull(uiSpec);
@@ -150,6 +149,9 @@ class FieldmarkNotebookTest {
     assertNull(metadata.getProjectStatus());
     assertNull(metadata.getProjectLead());
     assertNull(metadata.getLeadInstitution());
+    // never null: the rspace-web import calls toString() on these unconditionally
+    assertEquals(Boolean.FALSE, metadata.getIsPublic());
+    assertEquals(Boolean.FALSE, metadata.getIsRequest());
 
     // a notebook without a description keeps a synthesized metadata object
     FieldmarkNotebookMetadata second = underTest.get(1).getMetadata();
@@ -266,6 +268,8 @@ class FieldmarkNotebookTest {
     assertNull(metadata.getLeadInstitution());
     assertNull(metadata.getShowQRCodeButton());
     assertNull(metadata.getAge());
+    assertEquals(Boolean.FALSE, metadata.getIsPublic());
+    assertEquals(Boolean.FALSE, metadata.getIsRequest());
     assertEquals("2.0", metadata.getSchemaVersion());
 
     assertNotNull(notebook.getUiSpecification());
