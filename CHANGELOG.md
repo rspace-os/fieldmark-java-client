@@ -1,6 +1,17 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [4.1.0]
+- Adapting client to the Fieldmark/FAIMS3 release `1.6.2` (RSDEV-1308): the notebook endpoints
+  moved to the "projects DB v4" document shape (`_id`, top-level `description`, nested
+  `uiSpecification`). The client maps both API generations onto the existing model, keeping the
+  getters and the serialized JSON key set unchanged for consumers. Known value-level degradations
+  on 1.6.2 responses: `listing_id`, `ispublic` and `isrequest` have no equivalent and are null;
+  `Age`, `Size` and `project_status` are only populated when the notebook design carries them in
+  `metadata.custom`; the notebook LIST response carries no design metadata, so `project_lead`,
+  `lead_institution`, `notebook_version`, `schema_version` and `showQRCodeButton` are null there
+  (they are populated on the single-notebook GET, which is what the import flow uses).
+
 ## [4.0.0]
 - Spring 6 / Hibernate 6 / Jakarta migration (RSDEV-444)
 - Upgrade to rspace-parent 3.0.0

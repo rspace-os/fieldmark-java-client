@@ -1,0 +1,48 @@
+[
+  {
+    "_id": "1726126204618-rspace-igsn-demo",
+    "_rev": "4-b53c9f2a8d7e6f5a4c3b2a1908070605",
+    "name": "RSpace IGSN Demo",
+    "description": "Demonstration notebook to help develop an export pipeline from Fieldmark to RSpace.",
+    "status": "OPEN",
+    "createdBy": "lead@example.com",
+    "createdAt": "2026-07-08T05:48:13.000Z",
+    "updatedAt": "2026-07-10T09:12:44.000Z",
+    "ownedByTeamId": "team-fieldmark-demo",
+    "dataDb": {
+      "db_name": "data-1726126204618-rspace-igsn-demo"
+    },
+    "is_admin": true,
+    "byteCount": 482133
+  },
+  {
+    "_id": "1726126204619-campus-survey",
+    "_rev": "2-c64d0e3b9f8a7b6c5d4e3f2019181716",
+    "name": "Campus Survey",
+    "status": "CLOSED",
+    "createdBy": "surveyor@example.com",
+    "createdAt": "2026-06-01T10:00:00.000Z",
+    "updatedAt": "2026-06-30T16:20:00.000Z",
+    "dataDb": {
+      "db_name": "data-1726126204619-campus-survey"
+    },
+    "is_admin": false,
+    "byteCount": 10240
+  },
+  {
+    "_id": "1726126204620-soil-samples",
+    "_rev": "7-d75e1f4ca09b8c7d6e5f40312a292827",
+    "name": "Soil Samples",
+    "description": "Soil sampling campaign 2026.",
+    "status": "ARCHIVED",
+    "createdBy": "sampler@example.com",
+    "createdAt": "2026-02-14T08:30:00.000Z",
+    "updatedAt": "2026-08-01T12:00:00.000Z",
+    "templateId": "template-soil",
+    "dataDb": {
+      "db_name": "data-1726126204620-soil-samples"
+    },
+    "is_admin": true,
+    "byteCount": 998877
+  }
+]

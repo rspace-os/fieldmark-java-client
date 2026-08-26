@@ -1,0 +1,163 @@
+{
+  "_id": "1726126204618-rspace-igsn-demo",
+  "_rev": "4-b53c9f2a8d7e6f5a4c3b2a1908070605",
+  "name": "RSpace IGSN Demo",
+  "description": "Short summary of the RSpace IGSN demo notebook.",
+  "status": "OPEN",
+  "createdBy": "lead@example.com",
+  "createdAt": "2026-07-08T05:48:13.000Z",
+  "updatedAt": "2026-07-10T09:12:44.000Z",
+  "ownedByTeamId": "team-fieldmark-demo",
+  "templateId": "template-igsn-demo",
+  "dataDb": {
+    "db_name": "data-1726126204618-rspace-igsn-demo",
+    "base_url": "https://api.fieldmark.app/couchdb"
+  },
+  "uiSpecification": {
+    "uiSpec": {
+      "fields": {
+        "Description": {
+          "component-namespace": "formik-material-ui",
+          "component-name": "TextField",
+          "type-returned": "faims-core::String",
+          "component-parameters": {
+            "label": "Description",
+            "name": "Description"
+          }
+        },
+        "Field-ID": {
+          "component-namespace": "faims-custom",
+          "component-name": "TemplatedStringField",
+          "type-returned": "faims-core::String",
+          "component-parameters": {
+            "label": "Field ID",
+            "name": "Field-ID"
+          }
+        },
+        "IGSN-QR-Code": {
+          "component-namespace": "qrcode",
+          "component-name": "QRCodeFormField",
+          "type-returned": "faims-core::String",
+          "component-parameters": {
+            "label": "IGSN QR Code",
+            "name": "IGSN-QR-Code"
+          }
+        },
+        "Length-mm": {
+          "component-namespace": "formik-material-ui",
+          "component-name": "TextField",
+          "type-returned": "faims-core::Number",
+          "component-parameters": {
+            "label": "Length mm",
+            "name": "Length-mm"
+          }
+        },
+        "New-Text-Field": {
+          "component-namespace": "formik-material-ui",
+          "component-name": "TextField",
+          "type-returned": "faims-core::String",
+          "component-parameters": {
+            "label": "New Text Field",
+            "name": "New-Text-Field"
+          }
+        },
+        "Sample-Location": {
+          "component-namespace": "faims-custom",
+          "component-name": "TakePoint",
+          "type-returned": "faims-pos::Location",
+          "component-parameters": {
+            "label": "Sample Location",
+            "name": "Sample-Location"
+          }
+        },
+        "Sample-Photograph": {
+          "component-namespace": "faims-custom",
+          "component-name": "TakePhoto",
+          "type-returned": "faims-attachment::Files",
+          "component-parameters": {
+            "label": "Sample Photograph",
+            "name": "Sample-Photograph"
+          }
+        },
+        "Survey-Number": {
+          "component-namespace": "formik-material-ui",
+          "component-name": "TextField",
+          "type-returned": "faims-core::Number",
+          "component-parameters": {
+            "label": "Survey Number",
+            "name": "Survey-Number"
+          }
+        },
+        "Thickness-mm": {
+          "component-namespace": "formik-material-ui",
+          "component-name": "TextField",
+          "type-returned": "faims-core::Number",
+          "component-parameters": {
+            "label": "Thickness mm",
+            "name": "Thickness-mm"
+          }
+        },
+        "Width-mm": {
+          "component-namespace": "formik-material-ui",
+          "component-name": "TextField",
+          "type-returned": "faims-core::Number",
+          "component-parameters": {
+            "label": "Width mm",
+            "name": "Width-mm"
+          }
+        },
+        "hridPrimary-Next-Section": {
+          "component-namespace": "faims-custom",
+          "component-name": "TemplatedStringField",
+          "type-returned": "faims-core::String",
+          "component-parameters": {
+            "label": "hrid",
+            "name": "hridPrimary-Next-Section"
+          }
+        }
+      },
+      "views": {
+        "Primary-Section": {
+          "label": "Primary Section",
+          "fields": [
+            "Description",
+            "Field-ID",
+            "IGSN-QR-Code",
+            "Length-mm"
+          ]
+        }
+      },
+      "viewsets": {
+        "Primary": {
+          "label": "Primary",
+          "views": [
+            "Primary-Section"
+          ]
+        }
+      },
+      "visible_types": [
+        "Primary"
+      ],
+      "settings": {
+        "showQrCodeButton": true
+      },
+      "schemaVersion": "2.0"
+    },
+    "metadata": {
+      "information": {
+        "notebookVersion": "1.1",
+        "purposeMarkdown": "Demonstration notebook to help develop an export pipeline from Fieldmark to RSpace.",
+        "projectLeadLabel": "Steve Cassidy",
+        "leadInstitution": "Fieldmark",
+        "derivedFromTemplateId": "template-igsn-demo"
+      },
+      "custom": {
+        "Age": "123",
+        "Size": "Large",
+        "project_status": "New"
+      }
+    }
+  },
+  "recordCount": 3,
+  "byteCount": 482133
+}
