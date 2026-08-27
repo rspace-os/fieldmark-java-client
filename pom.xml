@@ -5,7 +5,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <artifactId>fieldmark-java-client</artifactId>
-  <version>RSDEV-1308-fieldmark-bug</version>
+  <version>4.1.0</version>
 
   <parent>
     <groupId>com.github.rspace-os</groupId>
