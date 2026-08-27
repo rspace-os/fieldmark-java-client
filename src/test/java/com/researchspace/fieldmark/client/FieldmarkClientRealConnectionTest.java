@@ -21,7 +21,9 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Manual contract test against the live Fieldmark API. Export a long-lived token as the
- * FIELDMARK_TOKEN environment variable (never paste it into this file) and remove @Disabled
+ * FIELDMARK_TOKEN environment variable (never paste it into this file) 
+ * `FIELDMARK_TOKEN='your-long-lived-token-here' mvn test -Dtest=FieldmarkClientRealConnectionTest`
+ * and remove @Disabled
  * locally to run. Run it after any Fieldmark/FAIMS3 release: it asserts the response fields this
  * client and the rspace-web import depend on (ids, names, design metadata, field types, CSV
  * columns, ZIP filenames), so a breaking API change fails here instead of in production. Written
