@@ -293,6 +293,25 @@ class FieldmarkNotebookTest {
   }
 
   /**
+   * getMetadata().getProjectId() must always agree with getProjectId(), whichever of the two id
+   * keys the document carries.
+   */
+  @Test
+  void testSynthesizedMetadataProjectIdMatchesNotebookProjectId() throws IOException {
+    String json = IOUtils.resourceToString("/json/notebookID_v162.json",
+        Charset.defaultCharset());
+
+    ObjectMapper mapper = new ObjectMapper();
+    ObjectNode withProjectIdOnly = (ObjectNode) mapper.readTree(json);
+    withProjectIdOnly.remove("_id");
+    withProjectIdOnly.put("project_id", "project-id-key-only");
+
+    FieldmarkNotebook notebook = mapper.treeToValue(withProjectIdOnly, FieldmarkNotebook.class);
+    assertEquals("project-id-key-only", notebook.getProjectId());
+    assertEquals(notebook.getProjectId(), notebook.getMetadata().getProjectId());
+  }
+
+  /**
    * Reading the synthesized values (which Jackson serialization also does, via the getters) must
    * not mutate the notebook: two notebooks parsed from the same JSON stay equal after one of them
    * has been read, so notebooks remain safe as map keys and in sets.

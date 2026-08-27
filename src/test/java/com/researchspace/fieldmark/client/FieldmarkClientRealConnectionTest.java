@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 import com.researchspace.fieldmark.model.FieldmarkNotebook;
 import com.researchspace.fieldmark.model.FieldmarkRecord;
@@ -36,6 +37,9 @@ class FieldmarkClientRealConnectionTest {
 
   @BeforeEach
   public void setUp() {
+    assumeTrue(StringUtils.isNotBlank(LONG_LIVED_TOKEN),
+        "Set the FIELDMARK_TOKEN environment variable to a Fieldmark long-lived token "
+            + "before running this manual test");
     fieldmarkClientImpl.setFieldmarkBaseUrl("https://api.fieldmark.app/api");
   }
 

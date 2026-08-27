@@ -9,7 +9,7 @@ import com.researchspace.fieldmark.model.FieldmarkNotebook;
 import com.researchspace.fieldmark.model.FieldmarkRecordsJsonExport;
 import java.io.File;
 import java.io.IOException;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
@@ -21,7 +21,7 @@ class FieldmarkUtilsTest {
   void testBuildFieldTypeMapFromV162Notebook() throws IOException {
     ObjectMapper mapper = new ObjectMapper();
     FieldmarkNotebook notebook = mapper.readValue(
-        IOUtils.resourceToString("/json/notebookID_v162.json", Charset.defaultCharset()),
+        IOUtils.resourceToString("/json/notebookID_v162.json", StandardCharsets.UTF_8),
         FieldmarkNotebook.class);
 
     Map<String, String> fieldTypes = FieldmarkUtils.buildFieldTypeMap(notebook);
@@ -31,7 +31,7 @@ class FieldmarkUtilsTest {
 
     // the field-type map drives the records import: form id, file detection, type extraction
     FieldmarkRecordsJsonExport records = mapper.readValue(
-        IOUtils.resourceToString("/json/records.json", Charset.defaultCharset()),
+        IOUtils.resourceToString("/json/records.json", StandardCharsets.UTF_8),
         FieldmarkRecordsJsonExport.class);
     records.setFieldTypes(fieldTypes);
     assertEquals("Primary", records.getFormId());

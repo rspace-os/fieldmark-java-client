@@ -82,7 +82,7 @@ public class FieldmarkNotebook {
 
   private FieldmarkNotebookMetadata synthesizeMetadata() {
     FieldmarkNotebookMetadata result = new FieldmarkNotebookMetadata();
-    result.setProjectId(id);
+    result.setProjectId(getProjectId());
     result.setName(name);
     result.setPreDescription(description);
     // never null: the rspace-web import calls toString() on these unconditionally
