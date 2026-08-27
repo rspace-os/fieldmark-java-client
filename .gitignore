@@ -28,3 +28,10 @@ replay_pid*
 /target/
 *.iml
 
+# Eclipse / VSCode Java tooling
+/.classpath
+/.project
+/.factorypath
+/.settings/
+/.claude/
+

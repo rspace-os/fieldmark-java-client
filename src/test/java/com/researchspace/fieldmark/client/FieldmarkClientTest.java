@@ -69,6 +69,39 @@ class FieldmarkClientTest {
   }
 
   @Test
+  public void testGetNotebooksV162() throws IOException {
+    String notebooksJson = IOUtils.resourceToString("/json/notebooks_v162.json",
+        Charset.defaultCharset());
+
+    mockServer.expect(requestTo(containsString("/notebooks/")))
+        .andExpect(method(HttpMethod.GET))
+        .andRespond(withSuccess(notebooksJson, MediaType.APPLICATION_JSON));
+
+    List<FieldmarkNotebook> notebooks = fieldmarkClient.getNotebooks("LONG_LIVED_TOKEN");
+    assertEquals(3, notebooks.size());
+    assertEquals("1726126204618-rspace-igsn-demo", notebooks.get(0).getProjectId());
+    assertEquals("RSpace IGSN Demo", notebooks.get(0).getName());
+    assertEquals("1726126204618-rspace-igsn-demo",
+        notebooks.get(0).getMetadata().getProjectId());
+  }
+
+  @Test
+  public void testGetNotebookIdV162() throws IOException {
+    String notebookIdJson = IOUtils.resourceToString("/json/notebookID_v162.json",
+        Charset.defaultCharset());
+    mockServer.expect(requestTo(containsString("/notebooks/1726126204618-rspace-igsn-demo")))
+        .andExpect(method(HttpMethod.GET))
+        .andRespond(withSuccess(notebookIdJson, MediaType.APPLICATION_JSON));
+
+    FieldmarkNotebook notebook = fieldmarkClient.getNotebook("", "1726126204618-rspace-igsn-demo");
+    assertNotNull(notebook);
+    assertEquals("RSpace IGSN Demo", notebook.getMetadata().getName());
+    assertEquals("1726126204618-rspace-igsn-demo", notebook.getMetadata().getProjectId());
+    assertEquals("faims-attachment::Files",
+        notebook.getUiSpecification().getFields().get("Sample-Photograph").getFieldType());
+  }
+
+  @Test
   public void testGetNotebookRecords() throws IOException {
     String notebookRecordsJson = IOUtils.resourceToString("/json/records.json",
         Charset.defaultCharset());
