@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -80,8 +81,10 @@ class FieldmarkNotebookTest {
     // relocated by the v1.6.2 API into uiSpecification.metadata.custom
     assertEquals("123", metadataUnderTest.getAge());
     assertEquals("Large", metadataUnderTest.getSize());
-    assertEquals("New", metadataUnderTest.getProjectStatus());
-    assertEquals(Boolean.TRUE, metadataUnderTest.getIsPublic());
+    // project_status is migrated (not copied to custom) by upstream: it is the top-level status
+    assertEquals("OPEN", metadataUnderTest.getProjectStatus());
+    // ispublic/isrequest are dropped by upstream, so a v1.6.2 document can only say false
+    assertEquals(Boolean.FALSE, metadataUnderTest.getIsPublic());
     assertEquals(Boolean.FALSE, metadataUnderTest.getIsRequest());
 
     FieldmarkUiSpecification uiSpec = notebookUnderTest.getUiSpecification();
@@ -145,8 +148,9 @@ class FieldmarkNotebookTest {
     assertEquals(
         "Demonstration notebook to help develop an export pipeline from Fieldmark to RSpace.",
         metadata.getPreDescription());
+    // project_status is the top-level status, which the list response does carry
+    assertEquals("OPEN", metadata.getProjectStatus());
     // the v1.6.2 list response carries no design metadata
-    assertNull(metadata.getProjectStatus());
     assertNull(metadata.getProjectLead());
     assertNull(metadata.getLeadInstitution());
     // never null: the rspace-web import calls toString() on these unconditionally
@@ -207,24 +211,69 @@ class FieldmarkNotebookTest {
   @Test
   void testOldAndV162NotebooksSerializeWithSameKeys() throws IOException {
     ObjectMapper mapper = new ObjectMapper();
-    JsonNode oldSerialized = mapper.readTree(mapper.writeValueAsString(mapper.readValue(
+    FieldmarkNotebook oldNotebook = mapper.readValue(
         IOUtils.resourceToString("/json/notebookID.json", Charset.defaultCharset()),
-        FieldmarkNotebook.class)));
-    JsonNode newSerialized = mapper.readTree(mapper.writeValueAsString(mapper.readValue(
+        FieldmarkNotebook.class);
+    FieldmarkNotebook newNotebook = mapper.readValue(
         IOUtils.resourceToString("/json/notebookID_v162.json", Charset.defaultCharset()),
-        FieldmarkNotebook.class)));
+        FieldmarkNotebook.class);
+    JsonNode oldSerialized = mapper.readTree(mapper.writeValueAsString(oldNotebook));
+    JsonNode newSerialized = mapper.readTree(mapper.writeValueAsString(newNotebook));
 
-    List<String> oldKeys = new ArrayList<>();
-    oldSerialized.fieldNames().forEachRemaining(oldKeys::add);
-    List<String> newKeys = new ArrayList<>();
-    newSerialized.fieldNames().forEachRemaining(newKeys::add);
-    assertEquals(oldKeys, newKeys);
+    List<String> expectedKeys = List.of(
+        "name", "status", "id", "metadata", "project_id", "listing_id", "ui-specification");
+    assertEquals(expectedKeys, keysOf(oldSerialized));
+    assertEquals(expectedKeys, keysOf(newSerialized));
+
+    List<String> expectedMetadataKeys = List.of(
+        "name", "showQRCodeButton", "Age", "Size", "ispublic", "isrequest", "lead_institution",
+        "notebook_version", "pre_description", "project_lead", "project_status",
+        "schema_version", "project_id");
+    assertEquals(expectedMetadataKeys, keysOf(oldSerialized.get("metadata")));
+    assertEquals(expectedMetadataKeys, keysOf(newSerialized.get("metadata")));
+
+    // with nulls omitted the generations genuinely differ: the old fixture carries its id keys
+    // as null, while a v1.6.2 document has a real id and no listing_id
+    ObjectMapper nonNullMapper =
+        new ObjectMapper().setSerializationInclusion(JsonInclude.Include.NON_NULL);
+    JsonNode oldNonNull = mapper.readTree(nonNullMapper.writeValueAsString(oldNotebook));
+    JsonNode newNonNull = mapper.readTree(nonNullMapper.writeValueAsString(newNotebook));
+    assertEquals(List.of("name", "status", "metadata", "ui-specification"), keysOf(oldNonNull));
+    assertEquals(
+        List.of("name", "status", "id", "metadata", "project_id", "ui-specification"),
+        keysOf(newNonNull));
 
     // the old shape round-trips its metadata untouched
     assertEquals("New", oldSerialized.get("metadata").get("project_status").asText());
     assertEquals(
         "Demonstration notebook to help develop an export pipeline from Fieldmark to RSpace.",
         oldSerialized.get("metadata").get("pre_description").asText());
+  }
+
+  private static List<String> keysOf(JsonNode node) {
+    List<String> keys = new ArrayList<>();
+    node.fieldNames().forEachRemaining(keys::add);
+    return keys;
+  }
+
+  /**
+   * Upstream migrateV5 sets purposeMarkdown to stringOrEmpty(pre_description), so a notebook that
+   * never had a pre_description arrives with purposeMarkdown: "". A blank value must not shadow
+   * the top-level description.
+   */
+  @Test
+  void testV162BlankPurposeMarkdownFallsBackToDescription() throws IOException {
+    String json = IOUtils.resourceToString("/json/notebookID_v162.json",
+        Charset.defaultCharset());
+
+    ObjectMapper mapper = new ObjectMapper();
+    ObjectNode doc = (ObjectNode) mapper.readTree(json);
+    ((ObjectNode) doc.get("uiSpecification").get("metadata").get("information"))
+        .put("purposeMarkdown", "");
+
+    FieldmarkNotebook notebook = mapper.treeToValue(doc, FieldmarkNotebook.class);
+    assertEquals("Short summary of the RSpace IGSN demo notebook.",
+        notebook.getMetadata().getPreDescription());
   }
 
   @Test
@@ -263,7 +312,8 @@ class FieldmarkNotebookTest {
     assertNotNull(metadata);
     assertEquals("1726126204618-rspace-igsn-demo", metadata.getProjectId());
     assertEquals("RSpace IGSN Demo", metadata.getName());
-    assertNull(metadata.getProjectStatus());
+    // top-level status survives even a partial document
+    assertEquals("OPEN", metadata.getProjectStatus());
     assertNull(metadata.getProjectLead());
     assertNull(metadata.getLeadInstitution());
     assertNull(metadata.getShowQRCodeButton());

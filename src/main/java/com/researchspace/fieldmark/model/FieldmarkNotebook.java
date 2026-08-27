@@ -85,7 +85,11 @@ public class FieldmarkNotebook {
     result.setProjectId(getProjectId());
     result.setName(name);
     result.setPreDescription(description);
-    // never null: the rspace-web import calls toString() on these unconditionally
+    // project_status is in upstream's LEGACY_KEYS_MAPPED (migrateV5.ts), so it never appears in
+    // metadata.custom: at v1.6.2 the notebook's state is the document's top-level status
+    result.setProjectStatus(status);
+    // never null: the rspace-web import calls toString() on these unconditionally. Upstream drops
+    // ispublic/isrequest (LEGACY_KEYS_DROPPED), so false is all a v1.6.2 document can say.
     result.setIsPublic(Boolean.FALSE);
     result.setIsRequest(Boolean.FALSE);
     if (definition == null) {
@@ -97,24 +101,19 @@ public class FieldmarkNotebook {
       result.setNotebookVersion(information.getNotebookVersion());
       result.setProjectLead(information.getProjectLeadLabel());
       result.setLeadInstitution(information.getLeadInstitution());
-      if (information.getPurposeMarkdown() != null) {
-        // purposeMarkdown is the renamed pre_description, so it wins over description
+      // purposeMarkdown is the renamed pre_description, so it wins over description; upstream
+      // sets it to "" for notebooks that never had one, and a blank must not shadow description
+      if (information.getPurposeMarkdown() != null && !information.getPurposeMarkdown().isBlank()) {
         result.setPreDescription(information.getPurposeMarkdown());
       }
     }
     Map<String, Object> custom =
         definition.getMetadata() == null ? null : definition.getMetadata().getCustom();
     if (custom != null) {
-      // arbitrary pre-1.6.2 metadata keys live on in the design's custom bag
+      // arbitrary pre-1.6.2 metadata keys live on in the design's custom bag; project_status,
+      // ispublic and isrequest never do (upstream maps or drops them), so they are not read here
       result.setAge(Objects.toString(custom.get("Age"), null));
       result.setSize(Objects.toString(custom.get("Size"), null));
-      result.setProjectStatus(Objects.toString(custom.get("project_status"), null));
-      if (custom.get("ispublic") != null) {
-        result.setIsPublic(Boolean.parseBoolean(custom.get("ispublic").toString()));
-      }
-      if (custom.get("isrequest") != null) {
-        result.setIsRequest(Boolean.parseBoolean(custom.get("isrequest").toString()));
-      }
     }
     FieldmarkNotebookDefinition.UiSpec uiSpec = definition.getUiSpec();
     if (uiSpec != null) {

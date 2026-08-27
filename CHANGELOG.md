@@ -6,12 +6,20 @@ All notable changes to this project will be documented in this file.
   moved to the "projects DB v4" document shape (`_id`, top-level `description`, nested
   `uiSpecification`). The client maps both API generations onto the existing model, keeping the
   getters and the serialized JSON key set unchanged for consumers. Known value-level degradations
-  on 1.6.2 responses: `listing_id` has no equivalent and is null; `Age`, `Size`, `project_status`,
-  `ispublic` and `isrequest` are read from the design's `metadata.custom` bag when present
-  (`ispublic`/`isrequest` default to `false` rather than null, since the rspace-web import calls
-  `toString()` on them); the notebook LIST response carries no design metadata, so `project_lead`,
-  `lead_institution`, `notebook_version`, `schema_version` and `showQRCodeButton` are null there
-  (they are populated on the single-notebook GET, which is what the import flow uses).
+  on 1.6.2 responses: `listing_id` has no equivalent and is null; `Age` and `Size` are read from
+  the design's `metadata.custom` bag when present; `project_status` never reaches `metadata.custom`
+  (upstream migrates the legacy key instead), so it maps to the document's top-level `status`;
+  `ispublic` and `isrequest` are dropped outright by upstream and always come out `false` (never
+  null, since the rspace-web import calls `toString()` on them), so the import dialog's "Public"
+  column reads false even for genuinely public notebooks; the notebook LIST response carries no
+  design metadata, so `project_lead`, `lead_institution`, `notebook_version`, `schema_version` and
+  `showQRCodeButton` are null there (they are populated on the single-notebook GET, which is what
+  the import flow uses).
+- Heads-up for operators: the `/notebooks/{id}/records/{viewID}.csv` and `.zip` routes behind
+  `getNotebookCsv`/`getNotebookFiles` are deprecated at 1.6.2 and now answer a 302 redirect to a
+  signed download URL. The client keeps working because its `RestTemplate` follows redirects, but
+  the documented replacement is `/notebooks/{id}/records/export`; the client should migrate before
+  upstream retires the compatibility routes.
 
 ## [4.0.0]
 - Spring 6 / Hibernate 6 / Jakarta migration (RSDEV-444)
