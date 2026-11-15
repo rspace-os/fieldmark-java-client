@@ -10,7 +10,7 @@
   <parent>
     <groupId>com.github.rspace-os</groupId>
     <artifactId>rspace-parent</artifactId>
-    <version>3.0.0</version>
+    <version>314e7a9f6f729d219c4157c73dffd8314233de82</version>
   </parent>
 
   <repositories>
@@ -25,6 +25,12 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
+        <configuration>
+          <!-- Existing tests concatenate paths onto java.io.tmpdir. -->
+          <systemPropertyVariables>
+            <java.io.tmpdir>${project.build.directory}/surefire-reports/</java.io.tmpdir>
+          </systemPropertyVariables>
+        </configuration>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -121,12 +127,11 @@
     <dependency>
       <groupId>com.fasterxml.jackson.dataformat</groupId>
       <artifactId>jackson-dataformat-csv</artifactId>
-      <version>2.15.3</version>
+      <version>${jackson.version}</version>
     </dependency>
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-params</artifactId>
-      <version>5.8.2</version>
       <scope>test</scope>
     </dependency>
 
